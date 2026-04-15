@@ -1,4 +1,4 @@
-const BASE = 'http://localhost:5000/api';
+const BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
 // ── Token helpers ─────────────────────────────────────────────────────────────
 const getUserToken = () => {
@@ -18,7 +18,15 @@ const headers = (token) => ({
 
 const handle = async (res) => {
   const data = await res.json();
-  if (!res.ok) throw new Error(data.message || `HTTP ${res.status}`);
+  if (!res.ok) {
+    // If token expired, clear localStorage and redirect to login
+    if (res.status === 401 && data.code === 'TOKEN_EXPIRED') {
+      localStorage.removeItem('ws_user');
+      localStorage.removeItem('ws_admin');
+      window.location.href = '/login';
+    }
+    throw new Error(data.message || `HTTP ${res.status}`);
+  }
   return data;
 };
 

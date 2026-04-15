@@ -15,31 +15,31 @@ exports.createBooking = async (req, res) => {
       return res.status(400).json({ success: false, message: 'Missing required booking fields' });
     }
 
-    // Fetch vehicle to verify it exists and get owner + snapshot
-    const vehicle = await Vehicle.findById(vehicleId);
+    // ATOMIC OPERATION: Lock vehicle while checking availability (prevents race condition)
+    const vehicle = await Vehicle.findOneAndUpdate(
+      { 
+        _id: vehicleId, 
+        isAvailable: true, 
+        isCurrentlyBooked: false 
+      },
+      { isCurrentlyBooked: true },
+      { new: true }
+    );
+
     if (!vehicle) {
-      return res.status(404).json({ success: false, message: 'Vehicle not found' });
+      return res.status(400).json({ success: false, message: 'Vehicle not available or already booked' });
     }
 
     // Prevent owner from booking their own vehicle
     if (vehicle.ownerId.toString() === req.user._id.toString()) {
+      // Rollback the lock
+      await Vehicle.findByIdAndUpdate(vehicleId, { isCurrentlyBooked: false });
       return res.status(403).json({ success: false, message: 'You cannot book your own vehicle' });
-    }
-
-    // Check vehicle is available
-    if (!vehicle.isAvailable) {
-      return res.status(400).json({ success: false, message: 'Vehicle is not available' });
     }
 
     // Build snapshot — only store URL (never base64), always plain strings
     const rawImage = vehicle.photos?.[0]?.url || '';
     const snapshotImage = rawImage.startsWith('data:') ? '' : rawImage; // strip base64
-
-    if (vehicle.isCurrentlyBooked) {
-      return res.status(400).json({ success: false, message: 'This vehicle is currently booked by someone else' });
-    }
-    vehicle.isCurrentlyBooked = true;
-    await vehicle.save();
 
     const booking = await Booking.create({
       userId:    req.user._id,

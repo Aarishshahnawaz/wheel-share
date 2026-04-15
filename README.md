@@ -63,15 +63,6 @@ npm run dev
 
 ---
 
-## Admin Access
-
-```
-URL:      /admin2/login
-Email:    admin@wheelshare.com
-Password: admin123
-```
-
----
 
 ## Future Scope
 

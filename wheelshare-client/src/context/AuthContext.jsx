@@ -145,24 +145,9 @@ export function AuthProvider({ children }) {
       }
     }
 
-    // 2. Offline fallback — check localStorage users
+    // 2. Offline fallback — SECURITY FIX: Never store passwords client-side
     setBackendOnline(false);
-    const users = loadUsers();
-    const found = users.find(u =>
-      u.email === identifier.trim().toLowerCase() ||
-      u.phone === identifier.trim()
-    );
-
-    if (!found) {
-      return { success: false, message: 'No account found with this email or phone. Please sign up first.' };
-    }
-    if (found._pw !== password) {
-      return { success: false, message: 'Incorrect password. Please try again.' };
-    }
-
-    const safe = { ...found }; delete safe._pw;
-    save(safe); setUser(safe);
-    return { success: true, user: safe, offline: true };
+    return { success: false, message: 'Server offline. Please try again when connected.' };
   }, []);
 
   // ── UPDATE PROFILE ────────────────────────────────────────────────────────

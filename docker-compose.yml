@@ -1,9 +1,9 @@
 version: '3.8'
-
 services:
   mongo:
     image: mongo:7
     container_name: wheelshare-mongo
+    restart: always
     ports:
       - "27017:27017"
     volumes:
@@ -12,18 +12,23 @@ services:
   wheelshare-server:
     build: ./wheelshare-server
     container_name: wheelshare-server
+    restart: always
     ports:
       - "5000:5000"
     environment:
       - MONGO_URI=mongodb://mongo:27017/wheelshare
-      - JWT_SECRET=your_jwt_secret_here
+      - JWT_SECRET=ws_prod_jwt_secret_2026_a8f3k9m2p5q7r1t4v6x8z0b3d5f7h9j2
+      - ADMIN_SECRET=ws_admin_bootstrap_secret_2026_k3m5p7q9r1t3v5x7z9b1d3f5h7j9l1
       - PORT=5000
+      - NODE_ENV=production
+      - ALLOWED_ORIGINS=http://54.237.196.65:80,http://54.237.196.65
     depends_on:
       - mongo
 
   wheelshare-client:
     build: ./wheelshare-client
     container_name: wheelshare-client
+    restart: always
     ports:
       - "80:80"
     depends_on:

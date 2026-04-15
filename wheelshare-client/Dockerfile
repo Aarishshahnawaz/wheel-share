@@ -1,4 +1,4 @@
-# Stage 1 — Build
+
 FROM node:20-alpine AS builder
 
 WORKDIR /app
@@ -8,13 +8,13 @@ RUN npm install
 
 COPY . .
 
-# Backend URL injected at build time
+
 ARG VITE_API_URL=http://localhost:5000
 ENV VITE_API_URL=$VITE_API_URL
 
 RUN npm run build
 
-# Stage 2 — Serve with nginx
+
 FROM nginx:alpine
 
 COPY --from=builder /app/dist /usr/share/nginx/html

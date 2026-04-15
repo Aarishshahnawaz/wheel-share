@@ -6,3 +6,17 @@ dist-ssr/
 .env.*
 *.log
 .DS_Store
+
+# Kubernetes & Terraform (don't push to GitHub)
+k8s/
+terraform/
+*.tfstate
+*.tfstate.*
+.terraform/
+
+# VS Code settings
+.vscode/
+
+# AWS & Docker
+*.pem
+*.key

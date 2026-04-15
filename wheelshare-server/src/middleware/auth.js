@@ -21,7 +21,13 @@ const protect = async (req, res, next) => {
     return next();
 
   } catch (e) {
-    return res.status(401).json({ success: false, message: 'Invalid or expired token' });
+    // If token is invalid, clear it from client side
+    res.setHeader('X-Token-Expired', 'true');
+    return res.status(401).json({ 
+      success: false, 
+      message: 'Invalid or expired token. Please login again.',
+      code: 'TOKEN_EXPIRED'
+    });
   }
 };
 
