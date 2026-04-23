@@ -1,0 +1,24 @@
+# Render Blueprint for WheelShare Backend
+# This file can be used to deploy directly from Render dashboard
+
+services:
+  - type: web
+    name: wheelshare-backend
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: PORT
+        value: 5000
+      - key: NODE_ENV
+        value: production
+      - key: MONGO_URI
+        sync: false  # Set this manually in Render dashboard
+      - key: JWT_SECRET
+        generateValue: true
+      - key: ADMIN_SECRET
+        generateValue: true
+      - key: ALLOWED_ORIGINS
+        value: http://localhost:5173
+    healthCheckPath: /api/health

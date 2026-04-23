@@ -1,0 +1,153 @@
+================================================================================
+✅ VERCEL DEPLOYMENT CONFIGURATION COMPLETE
+================================================================================
+
+Your Vercel URL: https://wheel-share-z5wy.vercel.app
+
+================================================================================
+📁 FILES CREATED/UPDATED
+================================================================================
+
+✅ wheelshare-client/.env.production
+   - VITE_API_URL=http://100.48.94.34:30239/api
+
+✅ wheelshare-server/.env
+   - Added Vercel URL to ALLOWED_ORIGINS
+
+✅ wheelshare-server/vercel.json
+   - Backend Vercel configuration
+
+✅ VERCEL-DEPLOYMENT.md
+   - Complete deployment guide
+
+✅ deploy-to-vercel.sh
+   - Automated deployment script
+
+================================================================================
+🚀 DEPLOYMENT OPTIONS
+================================================================================
+
+OPTION 1: Frontend on Vercel + Backend on AWS (Current)
+--------------------------------------------------------
+✅ Frontend: https://wheel-share-z5wy.vercel.app
+✅ Backend:  http://100.48.94.34:30239/api
+
+Steps:
+1. Make sure backend is running on AWS
+2. Deploy frontend to Vercel:
+   cd "RentIt 2/wheelshare-client"
+   vercel --prod
+
+OPTION 2: Both on Vercel (Easiest)
+-----------------------------------
+Deploy both frontend and backend to Vercel
+
+Steps:
+1. Deploy backend:
+   cd "RentIt 2/wheelshare-server"
+   vercel --prod
+   
+2. Note the backend URL (e.g., https://wheelshare-server.vercel.app)
+
+3. Update frontend .env.production with backend URL
+
+4. Deploy frontend:
+   cd "RentIt 2/wheelshare-client"
+   vercel --prod
+
+OPTION 3: Frontend on Vercel + Backend on Render
+-------------------------------------------------
+✅ Frontend: Vercel
+✅ Backend:  Render (Free tier)
+
+Steps:
+1. Go to https://render.com
+2. Create new Web Service
+3. Connect GitHub repo
+4. Select wheelshare-server directory
+5. Set environment variables
+6. Deploy and get URL
+7. Update frontend .env.production
+8. Redeploy frontend to Vercel
+
+================================================================================
+🎯 RECOMMENDED: Deploy Both to Vercel
+================================================================================
+
+This is the easiest option:
+
+# Install Vercel CLI (if not installed)
+npm install -g vercel
+
+# Deploy backend
+cd "RentIt 2/wheelshare-server"
+vercel login
+vercel --prod
+
+# Copy the backend URL you get (e.g., https://wheelshare-server-xxx.vercel.app)
+
+# Update frontend environment
+cd "../wheelshare-client"
+# Edit .env.production and set:
+# VITE_API_URL=https://your-backend-url.vercel.app/api
+
+# Deploy frontend
+vercel --prod
+
+================================================================================
+⚙️ VERCEL ENVIRONMENT VARIABLES
+================================================================================
+
+For Backend (Set in Vercel Dashboard):
+- MONGO_URI: mongodb+srv://aarishaps2003:Khan098@cluster0.zvootjk.mongodb.net/wheelshare
+- JWT_SECRET: ws_prod_jwt_secret_2026_a8f3k9m2p5q7r1t4v6x8z0b3d5f7h9j2
+- ADMIN_SECRET: ws_admin_bootstrap_secret_2026_k3m5p7q9r1t3v5x7z9b1d3f5h7j9l1
+- ALLOWED_ORIGINS: https://wheel-share-z5wy.vercel.app
+- NODE_ENV: production
+
+For Frontend (Set in Vercel Dashboard):
+- VITE_API_URL: [Your backend URL]/api
+
+================================================================================
+🔍 VERIFY DEPLOYMENT
+================================================================================
+
+After deployment:
+
+1. Open: https://wheel-share-z5wy.vercel.app
+2. Try to signup/login
+3. Check browser console (F12) - No CORS errors
+4. Check Network tab - API calls go to correct backend
+5. Try uploading photos
+6. Test all features
+
+================================================================================
+📝 QUICK COMMANDS
+================================================================================
+
+# Deploy frontend only (using AWS backend)
+cd "RentIt 2/wheelshare-client"
+vercel --prod
+
+# Deploy backend to Vercel
+cd "RentIt 2/wheelshare-server"
+vercel --prod
+
+# Set environment variable
+vercel env add VITE_API_URL production
+
+# Force rebuild
+vercel --prod --force
+
+# View logs
+vercel logs
+
+================================================================================
+✅ READY TO DEPLOY!
+================================================================================
+
+Choose your preferred option and run the commands above.
+
+For the easiest deployment, I recommend Option 2 (Both on Vercel).
+
+================================================================================

@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wheelshare-client
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: wheelshare-client
+  template:
+    metadata:
+      labels:
+        app: wheelshare-client
+    spec:
+      containers:
+      - name: wheelshare-client
+        image: aarish098/wheelshare-client:latest
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: wheelshare-client-service
+spec:
+  selector:
+    app: wheelshare-client
+  ports:
+  - port: 80
+    targetPort: 80
+  type: LoadBalancer

@@ -1,0 +1,33 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: init-admin
+spec:
+  template:
+    spec:
+      containers:
+      - name: init-admin
+        image: curlimages/curl:latest
+        command:
+        - sh
+        - -c
+        - |
+          echo "Waiting for backend to be ready..."
+          sleep 30
+          
+          echo "Creating admin account..."
+          curl -X POST http://wheelshare-server-service:5000/api/auth/create-admin \
+            -H "Content-Type: application/json" \
+            -H "x-admin-secret: ws_admin_bootstrap_secret_2026_k3m5p7q9r1t3v5x7z9b1d3f5h7j9l1" \
+            -d '{
+              "name": "Super Admin",
+              "email": "admin@wheelshare.com",
+              "password": "admin123"
+            }'
+          
+          echo ""
+          echo "Admin account created!"
+          echo "Email: admin@wheelshare.com"
+          echo "Password: admin123"
+      restartPolicy: Never
+  backoffLimit: 3
