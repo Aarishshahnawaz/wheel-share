@@ -20,5 +20,5 @@ services:
       - key: ADMIN_SECRET
         generateValue: true
       - key: ALLOWED_ORIGINS
-        value: http://localhost:5173
+        value: https://wheel-share-z5wy.vercel.app/
     healthCheckPath: /api/health
