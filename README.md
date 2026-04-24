@@ -2,10 +2,27 @@
 
 A modern, full-stack vehicle rental marketplace that connects vehicle owners with renters. Built with React, Node.js, MongoDB, and Socket.io for real-time features.
 
-![WheelShare](https://img.shields.io/badge/Status-Production%20Ready-success)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Vercel-success?style=for-the-badge&logo=vercel)](https://wheel-share-z5wy.vercel.app/)
+![Status](https://img.shields.io/badge/Status-Production%20Ready-success)
 ![License](https://img.shields.io/badge/License-MIT-blue)
 ![Node](https://img.shields.io/badge/Node-18+-green)
 ![React](https://img.shields.io/badge/React-19-blue)
+
+## 🌐 Live Demo
+
+**🚀 [View Live Application](https://wheel-share-z5wy.vercel.app/)**
+
+Try it out:
+- Browse vehicles
+- Create an account
+- List your vehicle
+- Book a ride
+
+**Admin Panel**: [https://wheel-share-z5wy.vercel.app/admin2/login](https://wheel-share-z5wy.vercel.app/admin2/login)
+```
+Email: admin@wheelshare.com
+Password: admin123
+```
 
 ## 🌟 Features
 
